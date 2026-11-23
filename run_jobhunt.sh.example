@@ -1,0 +1,8 @@
+#!/bin/bash
+# Copy to run_jobhunt.sh (ignored by Git); customize PROJECT_DIR and SMTP_USER.
+set -euo pipefail
+PROJECT_DIR="/ABSOLUTE/PATH/job_hunt_linkedin"
+export SMTP_USER="your-address@gmail.com"
+export SMTP_PASSWORD="$(security find-generic-password -a "$SMTP_USER" -s jobhunt-gmail -w)"
+cd "$PROJECT_DIR"
+exec /usr/bin/env python3 jobhunt.py --days 1 --max-pages 1 --limit 25 --email --recipient "$SMTP_USER"
